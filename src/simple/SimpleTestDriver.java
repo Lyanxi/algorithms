@@ -1,9 +1,7 @@
 package simple;
 
-import simple.simpleImpl.BinarySearch;
-import simple.simpleImpl.LinearSearch;
-import simple.simpleImpl.MergeSortedArrays;
-import tools.CreateArrays;
+import simple.simpleImpl.*;
+import tools.ArrayTools;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,24 +12,37 @@ import tools.CreateArrays;
  */
 public class SimpleTestDriver {
     SimpleSearch simpleSearch;
-    CreateArrays arrays;
+    SimpleSort simpleSort;
+    ArrayTools arrayTool;
+    int[] array;
     int searchPosition;
 
     public SimpleTestDriver() {
-        this.arrays = new CreateArrays();
-        this.simpleSearch = new MergeSortedArrays(this.arrays.getMergeSortedArray());   //change the SimpleSearch
+        this.arrayTool = new ArrayTools();
+        this.array = this.arrayTool.getIntArray();
+        this.simpleSearch = new BinarySearch(this.array);   //change the SimpleSearch
+        this.simpleSort = new BottomUpSort(this.array);
         this.searchPosition = (int) Math.floor(Math.random() * 10);
     }
 
     private void searchTest() {
         int result = simpleSearch.search(searchPosition);
         if (result == searchPosition) {
-            System.out.printf("Find it!");
+            System.out.println("Find it!");
         }
+    }
+
+    private void sortTest() {
+        System.out.println("before the sorting: ");
+        arrayTool.displayArray(array);
+        System.out.println("\nafter the sorting: ");
+        int[] result = simpleSort.sort();
+        arrayTool.displayArray(result);
     }
 
     public static void main(String[] args) {
         SimpleTestDriver simpleTest = new SimpleTestDriver();
-        simpleTest.searchTest();
+//        simpleTest.searchTest();
+        simpleTest.sortTest();
     }
 }
